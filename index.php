@@ -6,7 +6,11 @@ use App\Helpers\Config;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-set_exception_handler([ExceptionHandler::class, 'handle']);
+require_once __DIR__ . '/Src/Exception/exception.php';
+
+
+$db = new mysqli('dsfafasdsdaf', 'root', '', 'bug');
+exit;
 
 $config = Config::getFileContent('asefsd');
 
