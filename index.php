@@ -8,7 +8,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/Src/Exception/exception.php';
 
-
 $db = new mysqli('dsfafasdsdaf', 'root', '', 'bug');
 exit;
 
