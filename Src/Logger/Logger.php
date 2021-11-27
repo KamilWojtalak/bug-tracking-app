@@ -69,7 +69,7 @@ class Logger implements LoggerInterface
     $env = $application->getEnvironment();
 
     $details = sprintf(
-      "%s - Level %s - Message %s - Context: %s",
+      "%s - Level %s - Message: %s - Context: %s",
       $date,
       $level,
       $message,
