@@ -6,7 +6,6 @@ namespace App\Contracts;
 
 interface LoggerInterface
 {
-
   public function emergency(string $message, array $context = []);
   public function alert(string $message, array $context = []);
   public function critical(string $message, array $context = []);
@@ -16,5 +15,4 @@ interface LoggerInterface
   public function info(string $message, array $context = []);
   public function debug(string $message, array $context = []);
   public function log(string $level, string $message, array $context = []);
-
 }
