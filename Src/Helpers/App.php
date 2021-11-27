@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Helpers;
 
-class App 
+class App
 {
   private $_config = [];
 
@@ -20,12 +20,15 @@ class App
 
   public function getEnvironment(): string
   {
-    return isset($this->_config['env']) && !empty($this->_config['env']) ? $this->_config['env'] : 'production';
+    if (!isset($this->_config['env'])) {
+      return 'production';
+    }
+    return $this->isTestMode() ? 'test' : $this->_config['env'];
   }
 
   public function getLogPath(): string
   {
-    if ( !isset($this->_config['log_path']) ) {
+    if (!isset($this->_config['log_path'])) {
       throw new \Exception('Log path is not defined');
     }
     return $this->_config['log_path'];
@@ -38,6 +41,14 @@ class App
 
   public function getServerTime(): \DateTimeInterface
   {
-    return new \DateTime( 'now', new \DateTimeZone('Europe/Warsaw') );
+    return new \DateTime('now', new \DateTimeZone('Europe/Warsaw'));
+  }
+
+  public function isTestMode(): bool
+  {
+    if ($this->isRunningFromConsole() && defined('PHPUNIT_RUNNING') && PHPUNIT_RUNNING == true) {
+      return false;
+    }
+    return false;
   }
 }

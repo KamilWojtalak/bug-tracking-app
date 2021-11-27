@@ -11,11 +11,11 @@ class Config {
   {
     $file_content = self::getFileContent($filename);
 
-    if ($key === null) {
+    if ($key == null) {
       return $file_content;
     }
 
-    return isset($file_content[$key]) ? $file_content[$key] : [];
+    return (isset($file_content[$key])) ? $file_content[$key] : [];
   }
 
   public static function getFileContent(string $filename): array 
@@ -24,7 +24,7 @@ class Config {
     $path = realpath( sprintf(__DIR__ . '/../Configs/%s.php', $filename) );
     try {
       if (file_exists($path)) {
-        $file_content = require_once $path;
+        $file_content = require $path;
       }
     } catch ( \Throwable $ex ) {
       throw new NotFoundException(
@@ -35,7 +35,7 @@ class Config {
         ]
       );
     }
-
-    return $file_content;
+    
+    return (array) $file_content;
   }
 }

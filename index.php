@@ -10,6 +10,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/Src/Exception/exception.php';
 
-$logger = new Logger();
+print_r((new Config)->getFileContent('app'));
 
-$logger->log(LogLevel::WARNING, 'Warnigng message');
+// $logger = new Logger();
+
+// $logger->log(LogLevel::WARNING, 'Warnigng message');
