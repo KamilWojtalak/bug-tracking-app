@@ -47,7 +47,7 @@ class PDOConnection extends AbstractConnection implements DatabaseConnectionInte
     return $this->connection;
   }
 
-  protected function parseCredentrials(array $credentials): array
+  protected function parseCredentials(array $credentials): array
   {
     $dsn = sprintf(
       '%s:host=%s;dbname=%s',
