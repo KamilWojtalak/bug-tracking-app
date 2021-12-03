@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace App\Repository;
-
 
 use App\Contracts\RepositoryInterface;
 use App\Database\QueryBuilder;
