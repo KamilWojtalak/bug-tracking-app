@@ -20,7 +20,7 @@ class BugReport extends Entity
     return (int) $this->id;
   }
 
-  public function setReportType(string $reportType)
+  public function setReportType(string $reportType): BugReport
   {
     $this->report_type = $reportType;
     return $this;
@@ -31,61 +31,40 @@ class BugReport extends Entity
     return $this->report_type;
   }
 
-  /**
-   * @return string
-   */
   public function getEmail(): string
   {
     return $this->email;
   }
 
-  /**
-   * @param string $email
-   * @return BugReport
-   */
-  public function setEmail(string $email)
+  public function setEmail(string $email): BugReport
   {
     $this->email = $email;
     return $this;
   }
 
-  /**
-   * @return string|null
-   */
   public function getLink(): ?string
   {
     return $this->link;
   }
 
-  /**
-   * @param string $link
-   * @return BugReport
-   */
-  public function setLink(?string $link)
+  public function setLink(?string $link): BugReport
   {
     $this->link = $link;
     return $this;
   }
 
-  /**
-   * @return string
-   */
   public function getMessage(): string
   {
     return $this->message;
   }
 
-  /**
-   * @param string $message
-   * @return BugReport
-   */
-  public function setMessage(string $message)
+  public function setMessage(string $message): BugReport
   {
     $this->message = $message;
     return $this;
   }
 
-  public function getCreatedAt()
+  public function getCreatedAt(): string
   {
     return $this->created_at;
   }
