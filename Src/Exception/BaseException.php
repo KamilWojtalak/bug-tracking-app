@@ -9,29 +9,29 @@ use Throwable;
 
 abstract class BaseException extends Exception
 {
-  protected $_data = [];
+
+  protected $data = [];
 
   public function __construct(
-    string $message = '',
-    array $data,
+    string $message = "",
+    array $data = [],
     int $code = 0,
     Throwable $previous = null
   ) {
-    $this->_data = $data;
+    $this->data = $data;
     parent::__construct($message, $code, $previous);
   }
 
-  public function setData(string $key, $value): void
+  public function setExtraData(string $key, $value): void
   {
-    $this->_data[$key] = $value;
+    $this->data[$key] = $value;
   }
 
-  public function getExtraData($key)
+  public function getExtraData(): array
   {
-    if (count($this->_data) === 0) {
-      return $this->_data;
+    if (count($this->data) === 0) {
+      return $this->data;
     }
-
-    return json_decode(json_encode($this->_data[$key]), true);
+    return json_decode(json_encode($this->data), true);
   }
 }

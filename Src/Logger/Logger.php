@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Logger;
 
+
 use App\Contracts\LoggerInterface;
 use App\Exception\InvalidLogLevelArgument;
 use App\Helpers\App;
+use ReflectionClass;
 
 class Logger implements LoggerInterface
 {
 
   public function emergency(string $message, array $context = [])
   {
-    $this->addRecord(LogLevel::DEBUG, $message, $context);
+    $this->addRecord(LogLevel::EMERGENCY, $message, $context);
   }
 
   public function alert(string $message, array $context = [])
@@ -53,7 +55,7 @@ class Logger implements LoggerInterface
 
   public function log(string $level, string $message, array $context = [])
   {
-    $object = new \ReflectionClass(LogLevel::class);
+    $object = new ReflectionClass(LogLevel::class);
     $validLogLevelsArray = $object->getConstants();
     if (!in_array($level, $validLogLevelsArray)) {
       throw new InvalidLogLevelArgument($level, $validLogLevelsArray);
@@ -61,28 +63,21 @@ class Logger implements LoggerInterface
     $this->addRecord($level, $message, $context);
   }
 
-  private function addRecord(string $level, string $message, array $context)
+  private function addRecord(string $level, string $message, array $context = [])
   {
     $application = new App;
     $date = $application->getServerTime()->format('Y-m-d H:i:s');
     $logPath = $application->getLogPath();
     $env = $application->getEnvironment();
-
     $details = sprintf(
-      "%s - Level %s - Message: %s - Context: %s",
+      "%s - Level: %s - Message: %s - Context: %s",
       $date,
       $level,
       $message,
-      json_encode($context),
+      json_encode($context)
     ) . PHP_EOL;
 
-    $fileName = sprintf(
-      "%s/%s-%s.log",
-      $logPath,
-      $env,
-      (new \DateTime)->format('j.n.Y'),
-    );
-
+    $fileName = sprintf("%s/%s-%s.log", $logPath, $env, date("j.n.Y"));
     file_put_contents($fileName, $details, FILE_APPEND);
   }
 }

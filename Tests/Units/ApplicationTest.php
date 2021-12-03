@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Units;
+
 
 use App\Helpers\App;
 use PHPUnit\Framework\TestCase;
@@ -19,6 +22,6 @@ class ApplicationTest extends TestCase
     self::assertTrue($application->isRunningFromConsole());
     self::assertSame('test', $application->getEnvironment());
     self::assertNotNull($application->getLogPath());
-    $this->assertInstanceOf(\DateTime::class, $application->getServerTime());
+    self::assertInstanceOf(\DateTime::class, $application->getServerTime());
   }
 }

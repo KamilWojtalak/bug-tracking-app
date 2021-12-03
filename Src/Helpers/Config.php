@@ -1,41 +1,36 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Helpers;
 
 use App\Exception\NotFoundException;
 
-class Config {
+class Config
+{
 
   public static function get(string $filename, string $key = null)
   {
-    $file_content = self::getFileContent($filename);
-
-    if ($key == null) {
-      return $file_content;
+    $fileContent = self::getFileContent($filename);
+    if ($key === null) {
+      return $fileContent;
     }
-
-    return (isset($file_content[$key])) ? $file_content[$key] : [];
+    return isset($fileContent[$key]) ? $fileContent[$key] : [];
   }
 
-  public static function getFileContent(string $filename): array 
+  public static function getFileContent(string $filename): array
   {
-    $file_content = [];
-    $path = realpath( sprintf(__DIR__ . '/../Configs/%s.php', $filename) );
+    $fileContent = [];
     try {
+      $path = realpath(sprintf(__DIR__ . '/../Configs/%s.php', $filename));
       if (file_exists($path)) {
-        $file_content = require $path;
+        $fileContent = require $path;
       }
-    } catch ( \Throwable $ex ) {
+    } catch (\Throwable $exception) {
       throw new NotFoundException(
-        sprintf('The specified file: %s was not found', $filename), 
-        [
-          'not found file',
-          'data is passed'
-        ]
+        sprintf('The specified file: %s was not found', $filename)
       );
     }
-    
-    return (array) $file_content;
+    return $fileContent;
   }
 }

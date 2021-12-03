@@ -1,6 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Database;
+
 
 use App\Exception\MissingArgumentException;
 
@@ -15,24 +18,19 @@ abstract class AbstractConnection
   public function __construct(array $credentials)
   {
     $this->credentials = $credentials;
-    if (!$this->credentialsHaveRequiredKeys($credentials)) {
+    if (!$this->credentialsHaveRequiredKeys($this->credentials)) {
       throw new MissingArgumentException(
         sprintf(
-          'Database connection crednetials are not mapped correctly, required key: %s',
+          'Database connection credentials are not mapped correctly, required key: %s',
           implode(',', static::REQUIRED_CONNECTION_KEYS)
-        ),
-        []
+        )
       );
     }
   }
 
   private function credentialsHaveRequiredKeys(array $credentials): bool
   {
-    $matches = array_intersect_key(
-      static::REQUIRED_CONNECTION_KEYS,
-      array_keys($credentials)
-    );
-
+    $matches = array_intersect(static::REQUIRED_CONNECTION_KEYS, array_keys($credentials));
     return count($matches) === count(static::REQUIRED_CONNECTION_KEYS);
   }
 
