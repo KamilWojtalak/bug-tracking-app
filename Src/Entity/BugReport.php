@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+
 namespace App\Entity;
+
 
 class BugReport extends Entity
 {
@@ -15,7 +17,7 @@ class BugReport extends Entity
 
   public function getId(): int
   {
-    return $this->id;
+    return (int) $this->id;
   }
 
   public function setReportType(string $reportType)

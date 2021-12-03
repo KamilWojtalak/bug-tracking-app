@@ -51,7 +51,7 @@ class QueryBuilderTest extends TestCase
       ->first();
 
     self::assertNotNull($result);
-    self::assertSame($id, $result->id);
+    self::assertSame($id, (int) $result->id);
   }
 
   public function testItCanPerformSelectQueryWithMultipleWhereClause()
@@ -65,7 +65,7 @@ class QueryBuilderTest extends TestCase
       ->runQuery()
       ->first();
     self::assertNotNull($result);
-    self::assertSame($id, $result->id);
+    self::assertSame($id, (int) $result->id);
     self::assertSame('Report Type 1', $result->report_type);
   }
 
@@ -75,7 +75,7 @@ class QueryBuilderTest extends TestCase
     $result = $this->queryBuilder->table('reports')
       ->select('*')->find($id);
     self::assertNotNull($result);
-    self::assertSame($id, $result->id);
+    self::assertSame($id, (int) $result->id);
     self::assertSame('Report Type 1', $result->report_type);
   }
 
@@ -85,7 +85,7 @@ class QueryBuilderTest extends TestCase
     $result = $this->queryBuilder->table('reports')
       ->select('*')->findOneBy('report_type', 'Report Type 1');
     self::assertNotNull($result);
-    self::assertSame($id, $result->id);
+    self::assertSame($id, (int) $result->id);
     self::assertSame('Report Type 1', $result->report_type);
   }
 
@@ -99,7 +99,7 @@ class QueryBuilderTest extends TestCase
     self::assertEquals(1, $count);
     $result = $this->queryBuilder->select('*')->find($id);
     self::assertNotNull($result);
-    self::assertSame($id, $result->id);
+    self::assertSame($id, (int) $result->id);
     self::assertSame('Report Type 1 updated', $result->report_type);
   }
   public function testItCanDeleteGivenId()
@@ -132,7 +132,6 @@ class QueryBuilderTest extends TestCase
       'link' => 'https://link.com',
       'created_at' => date('Y-m-d H:i:s'),
     ];
-    $id = $this->queryBuilder->table('reports')->create($data);
-    return $id;
+    return $this->queryBuilder->table('reports')->create($data);
   }
 }
